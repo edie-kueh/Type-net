@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Variable Type</title>
+    
+    <style>
+        
+        font-face { 
+            font-family: 'Gingham'; 
+            src: url('Gingham.woff2') format('woff2'), 
+            url('Gingham.woff') format('woff'), 
+            url('Gingham.ttf') format('truetype'); 
+            font-weight: normal; 
+            font-style: normal; 
+            } 
+
+        #target {
+            font-family: 'Gingham'; 
+            /* Set the correct font here */
+            font-variation-settings: "wdth"500, "wght"500;
+            transition: all ease 1s;
+            color: black;
+            font-size: 100px;
+        }
+
+        #target.thin {
+            font-variation-settings: "wdth"100, "wght"10;
+            font-family: 'Gingham';
+        }
+
+        #target.fat {
+            font-variation-settings: "wdth"1000, "wght"200;
+            font-family: 'Gingham';
+        }
+
+        h1 {
+            font-family:'Gingham';
+            
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2000px;
+            font-weight: 100;
+        }
+
+        
+        
+           /* font-variation-settings: "wdth" 500, "wght" 500;
+            animation: grow 10s linear infinite;*/
+
+        
+
+        /*@keyframes grow {
+            0% {
+                font-variation-settings: "wdth" 150, "wght" 300;
+            }
+            
+            50% {
+                font-variation-settings: "wdth" 1, "wght" 700;
+            }
+        }*/
+
+       
+    </style>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <p id="target" class="">ABCDEFfQ</p>
+
+    
+    
+   
+    
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+
+      
+        
+        /* Sending the data from terminal to browser */ 
+        var socket = io();
+        socket.on('packet', (packet) => {
+           console.log(packet);
+           packetReceived(packet);
+           setVariation(packet.payload.payload.length, packet.payload.payload.length)
+           
+        })
+
+        /* JQuery */
+
+        /*$('h1').css({ color: 'red' })
+       // $('p').css({ color: 'blue' })
+       
+        //first option
+            /*function packetReceived(data) {
+                console.log(data.payload.payload.length)
+                if (data.payload.payload.length > 500) {
+                document.getElementById("target").className = "fat";
+            }
+            else {
+                document.getElementById("target").className = "thin";
+            }
+        }*/
+
+          
+        //second option
+        function setVariation(width = 900, weight = 150, slant = 1) {
+            var value = `"wdth" ${width}, "wght" ${weight}, "slnt" ${slant}`;
+            document.getElementById("target").style.fontVariationSettings = value;
+        }
+
+        function packetReceived(data) {
+            setVariation(data.packetLength, data.packetIdentifiation, data.whatever);
+        }
+        
+        
+
+ 
+       
+    </script>
+   
+    <script>   
+        
+    
+    </script>
+ 
+
+
+    
+</body>
+</html>
